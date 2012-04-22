@@ -30,6 +30,11 @@ namespace Namecheap\Command
 		protected $_response;
 
 		/**
+		 * @var string
+		 */
+		protected $_status;
+
+		/**
 		 * @var array
 		 */
 		protected $_params = array(
@@ -66,6 +71,15 @@ namespace Namecheap\Command
 		{
 			$this->_config = $config;
 			return $this;
+		}
+
+		/**
+		 * Return status from api call
+		 * @return string
+		 */
+		public function status()
+		{
+			return $this->_status;
 		}
 
 		/**
@@ -172,13 +186,17 @@ namespace Namecheap\Command
 				return false;
 			}
 
+			// Parse xml result
 			$this->_xml = new \SimpleXMLElement($this->_result);
 
-			if ('ERROR' == $this->_xml['Status'])
+			// Save status
+			$this->_status = strtolower($this->_xml['Status']);
+
+			if ($this->_status == 'error')
 			{
 				$this->errorMessage = (string) $this->_xml->Errors->Error;
 				return false;
-			} else if ('OK' == $this->_xml['Status']) {
+			} else if ($this->_status == 'ok') {
 				$this->_response = $this->_xml->CommandResponse;
 			}
 

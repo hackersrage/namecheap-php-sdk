@@ -28,12 +28,6 @@ namespace Namecheap\Command\Domains
 		 */
 		protected function _postDispatch()
 		{
-			// Throw exception if node is not in result
-			if (!isset($this->_result->DomainCheckResult))
-			{
-				throw new Check\Exception($domain . ' was not in result set');
-			}
-
 			$this->domains = array();
 			foreach ($this->_response->DomainCheckResult as $entry)
 			{
@@ -56,7 +50,7 @@ namespace Namecheap\Command\Domains
 				$this->setParam('DomainList', (string) substr($value, 0, 1024));
 				return $this;
 			}
-			$this->getParam('DomainList');
+			return $this->getParam('DomainList');
 		}
 
 		/**
