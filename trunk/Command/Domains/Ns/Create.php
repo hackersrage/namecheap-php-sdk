@@ -40,7 +40,7 @@ namespace Namecheap\Command\Domains\Ns
 				{
 					$domain[$key] = (string) $value;
 				}
-				$this->domains[] = $domain;
+				$this->domains[$domain['Domain']] = $domain;
 			}
 		}
 
