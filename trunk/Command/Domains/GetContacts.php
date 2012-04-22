@@ -9,6 +9,11 @@ namespace Namecheap\Command\Domains
 {
 	class GetContacts extends \Namecheap\Command\ACommand
 	{
+		public $registrant = array();
+		public $tech = array();
+		public $admin = array();
+		public $auxBilling = array();
+
 		public function command()
 		{
 			return 'namecheap.domains.getContacts';
@@ -26,17 +31,41 @@ namespace Namecheap\Command\Domains
 		 */
 		protected function _postDispatch()
 		{
-			$domains = array();
-			foreach ($this->_response->DomainContactsResult->Domain as $entry)
+			$this->registrant = array();
+			foreach ($this->_response->DomainContactsResult->Registrant as $entry)
 			{
-				$domain = array();
-				foreach ($entry->attributes() as $key => $value)
+				foreach ($entry as $key => $value)
 				{
-					$domain[$key] = (string) $value;
+					$this->registrant[$key] = (string) $value;
 				}
-				$domains[] = $domain;
 			}
-			d($domains);
+
+			$this->tech = array();
+			foreach ($this->_response->DomainContactsResult->Tech as $entry)
+			{
+				foreach ($entry as $key => $value)
+				{
+					$this->tech[$key] = (string) $value;
+				}
+			}
+
+			$this->admin = array();
+			foreach ($this->_response->DomainContactsResult->Admin as $entry)
+			{
+				foreach ($entry as $key => $value)
+				{
+					$this->admin[$key] = (string) $value;
+				}
+			}
+
+			$this->auxBilling = array();
+			foreach ($this->_response->DomainContactsResult->AuxBilling as $entry)
+			{
+				foreach ($entry as $key => $value)
+				{
+					$this->auxBilling[$key] = (string) $value;
+				}
+			}
 		}
 
 		/**
