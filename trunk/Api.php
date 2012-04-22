@@ -8,6 +8,7 @@ namespace Namecheap\Api
 namespace Namecheap
 {
 	include_once 'Config.php';
+	include_once 'DnsRecord.php';
 	include_once 'Command/ICommand.php';
 	include_once 'Command/ACommand.php';
 	include_once 'Command/Domains/GetList.php';
