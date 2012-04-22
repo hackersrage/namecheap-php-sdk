@@ -9,6 +9,8 @@ namespace Namecheap\Command\Domains
 {
 	class GetList extends \Namecheap\Command\ACommand
 	{
+		public $domains = array();
+
 		public function command()
 		{
 			return 'namecheap.domains.getList';
@@ -25,9 +27,12 @@ namespace Namecheap\Command\Domains
 			);
 		}
 
+		/**
+		 * Process domains array
+		 */
 		protected function _postDispatch()
 		{
-			$domains = array();
+			$this->domains = array();
 
 			foreach ($this->_response->DomainGetListResult->Domain as $entry)
 			{
@@ -36,10 +41,8 @@ namespace Namecheap\Command\Domains
 				{
 					$domain[$key] = (string) $value;
 				}
-				$domains[] = $domain;
+				$this->domains[] = $domain;
 			}
-
-			d($domains);
 		}
 
 		/**

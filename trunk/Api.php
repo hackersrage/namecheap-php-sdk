@@ -11,6 +11,8 @@ namespace Namecheap
 	include_once 'Command/ICommand.php';
 	include_once 'Command/ACommand.php';
 	include_once 'Command/Domains/GetList.php';
+	include_once 'Command/Domains/GetContacts.php';
+	include_once 'Command/Domains/Check.php';
 
 	class Api
 	{
@@ -22,6 +24,7 @@ namespace Namecheap
 			'domains.getList'		=> 'Namecheap\Command\Domains\GetList',
 			'domains.getContacts'	=> 'Namecheap\Command\Domains\GetContacts',
 			'domains.create'		=> 'Namecheap\Command\Domains\Create',
+			'domains.check'			=> 'Namecheap\Command\Domains\Check',
 		);
 
 		/**
