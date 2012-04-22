@@ -15,6 +15,7 @@ namespace Namecheap
 	include_once 'Command/Domains/Check.php';
 	include_once 'Command/Domains/Create.php';
 	include_once 'Command/Domains/Dns/SetDefault.php';
+	include_once 'Command/Domains/Dns/SetCustom.php';
 	include_once 'Command/Domains/Ns/Create.php';
 	include_once 'Command/Domains/Ns/Delete.php';
 	include_once 'Command/Domains/Ns/GetInfo.php';
@@ -32,6 +33,7 @@ namespace Namecheap
 			'domains.create'			=> 'Namecheap\Command\Domains\Create',
 			'domains.check'				=> 'Namecheap\Command\Domains\Check',
 			'domains.dns.setDefault'	=> 'Namecheap\Command\Domains\Dns\SetDefault',
+			'domains.dns.setCustom'		=> 'Namecheap\Command\Domains\Dns\SetCustom',
 			'domains.ns.create'			=> 'Namecheap\Command\Domains\Ns\Create',
 			'domains.ns.delete'			=> 'Namecheap\Command\Domains\Ns\Delete',
 			'domains.ns.getInfo'		=> 'Namecheap\Command\Domains\Ns\GetInfo',
