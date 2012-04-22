@@ -14,6 +14,7 @@ namespace Namecheap
 	include_once 'Command/Domains/GetContacts.php';
 	include_once 'Command/Domains/Check.php';
 	include_once 'Command/Domains/Create.php';
+	include_once 'Command/Domains/Dns/SetDefault.php';
 	include_once 'Command/Domains/Ns/Create.php';
 	include_once 'Command/Domains/Ns/Delete.php';
 	include_once 'Command/Domains/Ns/GetInfo.php';
@@ -26,14 +27,15 @@ namespace Namecheap
 		 * @var array
 		 */
 		protected static $_commands = array(
-			'domains.getList'		=> 'Namecheap\Command\Domains\GetList',
-			'domains.getContacts'	=> 'Namecheap\Command\Domains\GetContacts',
-			'domains.create'		=> 'Namecheap\Command\Domains\Create',
-			'domains.check'			=> 'Namecheap\Command\Domains\Check',
-			'domains.ns.create'		=> 'Namecheap\Command\Domains\Ns\Create',
-			'domains.ns.delete'		=> 'Namecheap\Command\Domains\Ns\Delete',
-			'domains.ns.getInfo'	=> 'Namecheap\Command\Domains\Ns\GetInfo',
-			'domains.ns.update'		=> 'Namecheap\Command\Domains\Ns\Update',
+			'domains.getList'			=> 'Namecheap\Command\Domains\GetList',
+			'domains.getContacts'		=> 'Namecheap\Command\Domains\GetContacts',
+			'domains.create'			=> 'Namecheap\Command\Domains\Create',
+			'domains.check'				=> 'Namecheap\Command\Domains\Check',
+			'domains.dns.setDefault'	=> 'Namecheap\Command\Domains\Dns\SetDefault',
+			'domains.ns.create'			=> 'Namecheap\Command\Domains\Ns\Create',
+			'domains.ns.delete'			=> 'Namecheap\Command\Domains\Ns\Delete',
+			'domains.ns.getInfo'		=> 'Namecheap\Command\Domains\Ns\GetInfo',
+			'domains.ns.update'			=> 'Namecheap\Command\Domains\Ns\Update',
 		);
 
 		/**
