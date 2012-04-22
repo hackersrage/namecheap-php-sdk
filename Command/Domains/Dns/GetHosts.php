@@ -20,8 +20,8 @@ namespace Namecheap\Command\Domains\Dns
 		public function params()
 		{
 			return array(
-				'TLD'			=> 'com',
-				'SLD'			=> null,
+				'TLD'	=> 'com',
+				'SLD'	=> null,
 			);
 		}
 
@@ -45,8 +45,30 @@ namespace Namecheap\Command\Domains\Dns
 				{
 					$domain[$key] = (string) $value;
 				}
-				$this->_hosts[$domain['HostId']] = new \Namecheap\DnsRecord($domain);
+				$this->_hosts[$domain['Name']] = new \Namecheap\DnsRecord($domain);
 			}
+		}
+
+		/**
+		 * Return the DnsRecord object for host
+		 * @param string $key
+		 * @return Namecheap\DnsRecord
+		 */
+		public function getHost($key)
+		{
+			return (isset($this->_hosts[$key])) ? $this->_hosts[$key] : false;
+		}
+
+		/**
+		 * Set the DnsRecord object for host
+		 * @param string $key
+		 * @param Namecheap\DnsRecord
+		 * @return mixed
+		 */
+		public function setHost($key, \Namecheap\DnsRecord $value)
+		{
+			$this->_hosts[$key] = $value;
+			return $this;
 		}
 
 		/**
@@ -64,6 +86,44 @@ namespace Namecheap\Command\Domains\Dns
 				return $this;
 			}
 			return $this->getParam('SLD') . '.' . $this->getParam('TLD');
+		}
+
+		/**
+		 * Return the array of hosts
+		 * @return array
+		 */
+		public function hosts()
+		{
+			return (array) $this->_hosts;
+		}
+
+		/**
+		 * Return the DnsRecord object for host
+		 * @param string $key
+		 * @return Namecheap\DnsRecord
+		 */
+		public function host($key, \Namecheap\DnsRecord $value = null)
+		{
+			if (null !== $value)
+			{
+				return $this->setHost($key, $value);
+			}
+			return $this->getHost($key);
+		}
+
+		/**
+		 * Add DnsRecord object for host
+		 * @param Namecheap\DnsRecord $record
+		 * @return Namecheap\DnsRecord
+		 */
+		public function addHost(\Namecheap\DnsRecord $record)
+		{
+			if (strlen($record->host) < 1)
+			{
+				throw new GetHosts\Exception('No host set');
+			}
+			
+			return $this->setHost($record->host, $record);
 		}
 	}
 }
