@@ -1,19 +1,19 @@
 <?php
 
-namespace Namecheap\Command\Domains\Ns\Delete
+namespace Namecheap\Command\Domains\Ns\GetInfo
 {
 	class Exception extends \Exception {}
 }
 
 namespace Namecheap\Command\Domains\Ns
 {
-	class Delete extends \Namecheap\Command\ACommand
+	class GetInfo extends \Namecheap\Command\ACommand
 	{
 		public $domains = array();
 
 		public function command()
 		{
-			return 'namecheap.domains.ns.delete';
+			return 'namecheap.domains.ns.getInfo';
 		}
 
 		public function params()
@@ -32,7 +32,7 @@ namespace Namecheap\Command\Domains\Ns
 		{
 			$this->domains = array();
 
-			foreach ($this->_response->DomainNSDeleteResult as $entry)
+			foreach ($this->_response->DomainNSInfoResult as $entry)
 			{
 				$domain = array();
 				foreach ($entry->attributes() as $key => $value)
