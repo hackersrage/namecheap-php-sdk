@@ -1,0 +1,24 @@
+#summary Home
+#labels examples
+
+=Examples=
+
+==namecheap.domains==
+
+[domains.check]
+[domains.create]
+[domains.getList]
+
+==namecheap.domains.dns==
+
+[domains.dns.getHosts]
+[domains.dns.getList]
+[domains.dns.setCustom]
+[domains.dns.setDefault]
+
+==namecheap.domains.ns==
+
+[domains.ns.create]
+[domains.ns.delete]
+[domains.ns.getInfo]
+[domains.ns.update]
