@@ -13,7 +13,7 @@ $command = Namecheap\Api::factory($config, 'domains.check');
 $command->domainList(array('example1.com', 'example2'))->dispatch();
 
 // OR pass an array to domainList
-$command->domainList('example1.com,example2)->dispatch();
+$command->domainList('example1.com,example2')->dispatch();
 
 // Check single domain
 echo 'example1.com';
