@@ -154,6 +154,7 @@ namespace Namecheap\Command\Domains\Dns
 		/**
 		 * Return the DnsRecord object for host
 		 * @param int $index
+		 * @param Namecheap\DnsRecord $value
 		 * @return Namecheap\DnsRecord
 		 */
 		public function host($index, \Namecheap\DnsRecord $value = null)
@@ -165,6 +166,5 @@ namespace Namecheap\Command\Domains\Dns
 			}
 			return $this->getHost($index);
 		}
-
 	}
 }
