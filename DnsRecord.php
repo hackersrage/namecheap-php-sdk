@@ -27,6 +27,36 @@ namespace Namecheap
 		{
 			foreach ($config as $key => $value)
 			{
+				switch ($key)
+				{
+					case 'SLD':
+						$key = 'sld'; break;
+
+					case 'TLD':
+						$key = 'tld'; break;
+
+					case 'HostId':
+						$key = 'hostId'; break;
+
+					case 'Name':
+						$key = 'host'; break;
+
+					case 'Type':
+						$key = 'type'; break;
+
+					case 'Address':
+						$key = 'address'; break;
+
+					case 'MXPref':
+						$key = 'mxPref'; break;
+
+					case 'TTL':
+						$key = 'ttl'; break;
+
+					default:
+						continue;
+				}
+
 				if (array_key_exists($key, $this->_data))
 				{
 					$method = 'set' . ucfirst($key);
@@ -104,7 +134,7 @@ namespace Namecheap
 		 */
 		public function setSld($value)
 		{
-			$this->_data['sld'] = (string) substr($value, 0, 70));
+			$this->_data['sld'] = (string) substr($value, 0, 70);
 			return $this;
 		}
 
@@ -115,7 +145,7 @@ namespace Namecheap
 		 */
 		public function setTld($value)
 		{
-			$this->_data['tld'] = (string) substr($value, 0, 10));
+			$this->_data['tld'] = (string) substr($value, 0, 10);
 			return $this;
 		}
 
@@ -192,6 +222,17 @@ namespace Namecheap
 		}
 
 		/**
+		 * Set TTL
+		 * @param int $value
+		 * @return DnsRecord
+		 */
+		public function setTtl($value)
+		{
+			$this->_data['ttl'] = (int) substr($value, 0, 10);
+			return $this;
+		}
+
+		/**
 		 * Get SLD
 		 * @return string
 		 */
@@ -228,7 +269,7 @@ namespace Namecheap
 		}
 
 		/**
-		 * Get client ip
+		 * Get type
 		 * @return string
 		 */
 		public function getType()
@@ -237,7 +278,7 @@ namespace Namecheap
 		}
 
 		/**
-		 * Get sandbox
+		 * Get address
 		 * @return bool
 		 */
 		public function getAddress()
@@ -246,7 +287,7 @@ namespace Namecheap
 		}
 
 		/**
-		 * Get url
+		 * Get mx pref
 		 * @return string
 		 */
 		public function getMxPref()
@@ -254,6 +295,14 @@ namespace Namecheap
 			return (string) $this->_data['mxPref'];
 		}
 
+		/**
+		 * Get ttl
+		 * @return string
+		 */
+		public function getTtl()
+		{
+			return (string) $this->_data['ttl'];
+		}
 
 		/**
 		 * Get/set method for domain name, which is comprised of sld + tld
