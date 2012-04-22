@@ -45,29 +45,61 @@ namespace Namecheap\Command\Domains\Dns
 				{
 					$domain[$key] = (string) $value;
 				}
-				$this->_hosts[$domain['Name']] = new \Namecheap\DnsRecord($domain);
+				$this->_hosts[] = new \Namecheap\DnsRecord($domain);
 			}
 		}
 
 		/**
 		 * Return the DnsRecord object for host
-		 * @param string $key
+		 * @param int $index
 		 * @return Namecheap\DnsRecord
 		 */
-		public function getHost($key)
+		public function getHost($index)
 		{
-			return (isset($this->_hosts[$key])) ? $this->_hosts[$key] : false;
+			return (isset($this->_hosts[$index])) ? $this->_hosts[$index] : false;
 		}
 
 		/**
 		 * Set the DnsRecord object for host
-		 * @param string $key
+		 * @param int $index
 		 * @param Namecheap\DnsRecord
 		 * @return mixed
 		 */
-		public function setHost($key, \Namecheap\DnsRecord $value)
+		public function setHost($index, \Namecheap\DnsRecord $value)
 		{
-			$this->_hosts[$key] = $value;
+			$index = (int) $index;
+			$this->_hosts[$index] = $value;
+			return $this;
+		}
+
+		/**
+		 * Add DnsRecord object for host
+		 * @param Namecheap\DnsRecord $record
+		 * @return Namecheap\DnsRecord
+		 */
+		public function addHost(\Namecheap\DnsRecord $record)
+		{
+			if (strlen($record->host) < 1)
+			{
+				throw new GetHosts\Exception('No host set');
+			}
+
+			return $this->setHost($record->host, $record);
+		}
+
+		/**
+		 * Remove a host
+		 * @param int $index, array index to remove
+		 * @return Namecheap\DnsRecord
+		 */
+		public function removeHost($index)
+		{
+			$index = (int) $index;
+			if (isset($this->_hosts[$index]))
+			{
+				unset($this->_hosts[$index]);
+			}
+
 			return $this;
 		}
 
@@ -99,31 +131,18 @@ namespace Namecheap\Command\Domains\Dns
 
 		/**
 		 * Return the DnsRecord object for host
-		 * @param string $key
+		 * @param int $index
 		 * @return Namecheap\DnsRecord
 		 */
-		public function host($key, \Namecheap\DnsRecord $value = null)
+		public function host($index, \Namecheap\DnsRecord $value = null)
 		{
+			$index = (int) $index;
 			if (null !== $value)
 			{
-				return $this->setHost($key, $value);
+				return $this->setHost($index, $value);
 			}
-			return $this->getHost($key);
+			return $this->getHost($index);
 		}
 
-		/**
-		 * Add DnsRecord object for host
-		 * @param Namecheap\DnsRecord $record
-		 * @return Namecheap\DnsRecord
-		 */
-		public function addHost(\Namecheap\DnsRecord $record)
-		{
-			if (strlen($record->host) < 1)
-			{
-				throw new GetHosts\Exception('No host set');
-			}
-			
-			return $this->setHost($record->host, $record);
-		}
 	}
 }
