@@ -1,19 +1,19 @@
 <?php
 
-namespace Namecheap\Command\Domains\Ns\Create
+namespace Namecheap\Command\Domains\Ns\Delete
 {
 	class Exception extends \Exception {}
 }
 
 namespace Namecheap\Command\Domains\Ns
 {
-	class Create extends \Namecheap\Command\ACommand
+	class Delete extends \Namecheap\Command\ACommand
 	{
 		public $domains = array();
 
 		public function command()
 		{
-			return 'namecheap.domains.ns.create';
+			return 'namecheap.domains.ns.delete';
 		}
 
 		public function params()
@@ -22,7 +22,6 @@ namespace Namecheap\Command\Domains\Ns
 				'TLD'			=> 'com',
 				'SLD'			=> null,
 				'Nameserver'	=> null,
-				'IP'			=> null,
 			);
 		}
 
@@ -33,7 +32,7 @@ namespace Namecheap\Command\Domains\Ns
 		{
 			$this->domains = array();
 
-			foreach ($this->_response->DomainNSCreateResult as $entry)
+			foreach ($this->_response->DomainNSDeleteResult as $entry)
 			{
 				$domain = array();
 				foreach ($entry->attributes() as $key => $value)
@@ -74,27 +73,6 @@ namespace Namecheap\Command\Domains\Ns
 				return $this;
 			}
 			return $this->getParam('Nameserver');
-		}
-
-		/**
-		 * Get/set method for namserver ip
-		 * @param string $value
-		 * @return mixed
-		 */
-		public function ip($value = null)
-		{
-			if (null !== $value)
-			{
-				// Validate ip address
-				if (!filter_var($value, FILTER_VALIDATE_IP))
-				{
-					throw new Create\Exception('Invalid ip address ' . $value);
-				}
-
-				$this->setParam('IP', (string) substr($value, 0, 15));
-				return $this;
-			}
-			return $this->getParam('NameServer');
 		}
 	}
 }
