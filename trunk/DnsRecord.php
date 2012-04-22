@@ -10,8 +10,6 @@ namespace Namecheap
 	class DnsRecord
 	{
 		protected $_data = array(
-			'sld'		=> null,
-			'tld'		=> null,
 			'hostId'	=> null,
 			'host'		=> null,
 			'type'		=> 'A',
@@ -29,12 +27,6 @@ namespace Namecheap
 			{
 				switch ($key)
 				{
-					case 'SLD':
-						$key = 'sld'; break;
-
-					case 'TLD':
-						$key = 'tld'; break;
-
 					case 'HostId':
 						$key = 'hostId'; break;
 
@@ -128,28 +120,6 @@ namespace Namecheap
 		}
 
 		/**
-		 * Set the SLD
-		 * @param string $value
-		 * @return DnsRecord
-		 */
-		public function setSld($value)
-		{
-			$this->_data['sld'] = (string) substr($value, 0, 70);
-			return $this;
-		}
-
-		/**
-		 * Set the TLD
-		 * @param string $value
-		 * @return DnsRecord
-		 */
-		public function setTld($value)
-		{
-			$this->_data['tld'] = (string) substr($value, 0, 10);
-			return $this;
-		}
-
-		/**
 		 * Set the host id
 		 * @param int $value
 		 * @return DnsRecord
@@ -233,24 +203,6 @@ namespace Namecheap
 		}
 
 		/**
-		 * Get SLD
-		 * @return string
-		 */
-		public function getSld()
-		{
-			return (string) $this->_data['sld'];
-		}
-
-		/**
-		 * Get TLD
-		 * @return string
-		 */
-		public function getTld()
-		{
-			return (string) $this->_data['tld'];
-		}
-
-		/**
 		 * Get host id
 		 * @return int
 		 */
@@ -302,38 +254,6 @@ namespace Namecheap
 		public function getTtl()
 		{
 			return (string) $this->_data['ttl'];
-		}
-
-		/**
-		 * Get/set method for domain name, which is comprised of sld + tld
-		 * @param string $value
-		 * @return mixed
-		 */
-		public function domainName($value = null)
-		{
-			if (null !== $value)
-			{
-				list($sld, $tld) = explode('.', $value);
-				$this->setSld($sld);
-				$this->setTld((string) substr($tld, 0, 10));
-				return $this;
-			}
-			return $this->getSld() . '.' . $this->getTld();
-		}
-
-		/**
-		 * Fluid interface to get/set api user
-		 * @param string $value
-		 * @return mixed
-		 */
-		public function apiUser($value = null)
-		{
-			if (null !== $value)
-			{
-				return $this->setApiUser($value);
-			}
-
-			return $this->getApiUser();
 		}
 	}
 }
