@@ -11,6 +11,7 @@ namespace Namecheap\Command\Domains\Dns
 	{
 		public $data = array();
 		protected $_hosts = array();
+		protected $_hostIdMap = array();
 
 		public function command()
 		{
@@ -38,6 +39,7 @@ namespace Namecheap\Command\Domains\Dns
 
 			// Process host records
 			$this->_hosts = array();
+			$index = 0;
 			foreach ($this->_response->DomainDNSGetHostsResult->host as $entry)
 			{
 				$domain = array();
@@ -46,6 +48,8 @@ namespace Namecheap\Command\Domains\Dns
 					$domain[$key] = (string) $value;
 				}
 				$this->_hosts[] = new \Namecheap\DnsRecord($domain);
+				$this->_hostIdMap[$domain['HostId']] = $index;
+				$index += 1;
 			}
 		}
 
@@ -57,6 +61,22 @@ namespace Namecheap\Command\Domains\Dns
 		public function getHost($index)
 		{
 			return (isset($this->_hosts[$index])) ? $this->_hosts[$index] : false;
+		}
+
+		/**
+		 * Return the DnsRecord object for host by looking up host id
+		 * @param int $index
+		 * @return Namecheap\DnsRecord
+		 */
+		public function getHostByHostId($index)
+		{
+			// Get _hosts[index] from host id map array
+			if (isset($this->_hostIdMap[$index]))
+			{
+				$index = $this->_hostIdMap[$index];
+				return (isset($this->_hosts[$index])) ? $this->_hosts[$index] : false;
+			}
+			return false;
 		}
 
 		/**
@@ -97,6 +117,8 @@ namespace Namecheap\Command\Domains\Dns
 			$index = (int) $index;
 			if (isset($this->_hosts[$index]))
 			{
+				$hostId = $this->_hosts[$index]->hostId;
+				unset($this->_hostIdMap[$hostId]);
 				unset($this->_hosts[$index]);
 			}
 
