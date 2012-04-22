@@ -5,9 +5,9 @@
 
 ==namecheap.domains==
 
-[domains.check]
-[domains.create]
-[domains.getList]
+  * [DomainsCheck]
+  * [DomainsCreate]
+  * [DomainsGetList]
 
 ==namecheap.domains.dns==
 
