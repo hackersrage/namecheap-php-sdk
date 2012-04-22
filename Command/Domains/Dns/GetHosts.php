@@ -10,6 +10,7 @@ namespace Namecheap\Command\Domains\Dns
 	class GetHosts extends \Namecheap\Command\ACommand
 	{
 		public $data = array();
+		protected $_hosts = array();
 
 		public function command()
 		{
@@ -36,7 +37,7 @@ namespace Namecheap\Command\Domains\Dns
 			$this->data['namecheapDns'] = ((string) $result->attributes()->IsUsingOurDNS == 'true') ? true : false;
 
 			// Process host records
-			$this->data['hosts'] = array();
+			$this->_hosts = array();
 			foreach ($this->_response->DomainDNSGetHostsResult->host as $entry)
 			{
 				$domain = array();
@@ -44,7 +45,7 @@ namespace Namecheap\Command\Domains\Dns
 				{
 					$domain[$key] = (string) $value;
 				}
-				$this->data['hosts'][$domain['HostId']] = $domain;
+				$this->_hosts[$domain['HostId']] = new \Namecheap\DnsRecord($domain);
 			}
 		}
 
