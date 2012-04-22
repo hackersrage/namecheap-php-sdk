@@ -23,6 +23,7 @@ namespace Namecheap
 	include_once 'Command/Domains/Ns/Delete.php';
 	include_once 'Command/Domains/Ns/GetInfo.php';
 	include_once 'Command/Domains/Ns/Update.php';
+	include_once 'Command/Users/GetBalances.php';
 
 	class Api
 	{
@@ -43,6 +44,7 @@ namespace Namecheap
 			'domains.ns.delete'			=> 'Namecheap\Command\Domains\Ns\Delete',
 			'domains.ns.getInfo'		=> 'Namecheap\Command\Domains\Ns\GetInfo',
 			'domains.ns.update'			=> 'Namecheap\Command\Domains\Ns\Update',
+			'users.getBalances'			=> 'Namecheap\Command\Users\GetBalances',
 		);
 
 		/**
