@@ -235,7 +235,7 @@ namespace Namecheap
 		 */
 		public function getType()
 		{
-			return (string) $this->_data['clientIp'];
+			return (string) $this->_data['type'];
 		}
 
 		/**
@@ -244,7 +244,7 @@ namespace Namecheap
 		 */
 		public function getAddress()
 		{
-			return (bool) $this->_data['sandbox'];
+			return (bool) $this->_data['address'];
 		}
 
 		/**
