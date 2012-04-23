@@ -9,7 +9,6 @@ namespace Namecheap\Command\Domains\Dns
 {
 	class SetHosts extends \Namecheap\Command\ACommand
 	{
-		public $data = array();
 		protected $_hosts = array();
 		protected $_hostIdMap = array();
 
@@ -44,33 +43,6 @@ namespace Namecheap\Command\Domains\Dns
 					'TTL' . $i			=> $host->ttl,
 				));
 				$i += 1;
-			}
-		}
-
-		/**
-		 * Process domains array
-		 */
-		protected function _postDispatch()
-		{
-			$result = $this->_response->DomainDNSSetHostsResult;
-
-			$this->data = array();
-			$this->data['emailType'] = (string) $result->attributes()->EmailType;
-			$this->data['namecheapDns'] = ((string) $result->attributes()->IsUsingOurDNS == 'true') ? true : false;
-
-			// Process host records
-			$this->_hosts = array();
-			$index = 0;
-			foreach ($this->_response->DomainDNSSetHostsResult->host as $entry)
-			{
-				$domain = array();
-				foreach ($entry->attributes() as $key => $value)
-				{
-					$domain[$key] = (string) $value;
-				}
-				$this->_hosts[] = new \Namecheap\DnsRecord($domain);
-				$this->_hostIdMap[$domain['HostId']] = $index;
-				$index += 1;
 			}
 		}
 
