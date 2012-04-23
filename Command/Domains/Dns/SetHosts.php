@@ -1,13 +1,13 @@
 <?php
 
-namespace Namecheap\Command\Domains\Dns\GetHosts
+namespace Namecheap\Command\Domains\Dns\SetHosts
 {
 	class Exception extends \Exception {}
 }
 
 namespace Namecheap\Command\Domains\Dns
 {
-	class GetHosts extends \Namecheap\Command\ACommand
+	class SetHosts extends \Namecheap\Command\ACommand
 	{
 		public $data = array();
 		protected $_hosts = array();
@@ -15,7 +15,7 @@ namespace Namecheap\Command\Domains\Dns
 
 		public function command()
 		{
-			return 'namecheap.domains.dns.getHosts';
+			return 'namecheap.domains.dns.setHosts';
 		}
 
 		public function params()
@@ -27,11 +27,31 @@ namespace Namecheap\Command\Domains\Dns
 		}
 
 		/**
+		 * Overload parent method to handle custom parameters
+		 */
+		protected function _prepareParameters()
+		{
+			parent::_prepareParameters();
+
+			$i = 1;
+			foreach ($this->_hosts as $host)
+			{
+				$this->setParams(array(
+					'HostName' . $i		=> $host->host,
+					'RecordType' . $i	=> $host->type,
+					'Address' . $i		=> $host->address,
+					'MXPref' . $i		=> $host->mxPref,
+					'TTL' . $i			=> $host->ttl,
+				));
+			}
+		}
+
+		/**
 		 * Process domains array
 		 */
 		protected function _postDispatch()
 		{
-			$result = $this->_response->DomainDNSGetHostsResult;
+			$result = $this->_response->DomainDNSSetHostsResult;
 
 			$this->data = array();
 			$this->data['emailType'] = (string) $result->attributes()->EmailType;
@@ -40,7 +60,7 @@ namespace Namecheap\Command\Domains\Dns
 			// Process host records
 			$this->_hosts = array();
 			$index = 0;
-			foreach ($this->_response->DomainDNSGetHostsResult->host as $entry)
+			foreach ($this->_response->DomainDNSSetHostsResult->host as $entry)
 			{
 				$domain = array();
 				foreach ($entry->attributes() as $key => $value)
