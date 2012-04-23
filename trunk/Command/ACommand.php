@@ -212,5 +212,25 @@ namespace Namecheap\Command
 
 			return true;
 		}
+
+		public function getResult()
+		{
+			return $this->_result;
+		}
+
+		public function getXml()
+		{
+			return $this->_xml;
+		}
+
+		public function getResponse()
+		{
+			return $this->_response;
+		}
+
+		public function getStatus()
+		{
+			return $this->_status;
+		}
 	}
 }
