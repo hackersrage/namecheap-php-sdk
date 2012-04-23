@@ -147,6 +147,21 @@ namespace Namecheap\Command
 		}
 
 		/**
+		 * Prepare parameters for api call. This is a separate method so commands can extend and modify this
+		 */
+		protected function _prepareParameters()
+		{
+			// Set default parameter options via config object settings
+			$this->setParams(array(
+				'ApiUser'	=> $this->_config->apiUser,
+				'ApiKey'	=> $this->_config->apiKey,
+				'UserName'	=> $this->_config->username,
+				'ClientIP'	=> $this->_config->clientIp,
+				'Command'	=> $this->command(),
+			));
+		}
+
+		/**
 		 * Execute a call to the Namecheap API
 		 * @return bool success or failure
 		 */
@@ -157,14 +172,7 @@ namespace Namecheap\Command
 			// Verify config options
 			$this->_config->check();
 
-			// Set default parameter options via config object settings
-			$this->setParams(array(
-				'ApiUser'	=> $this->_config->apiUser,
-				'ApiKey'	=> $this->_config->apiKey,
-				'UserName'	=> $this->_config->username,
-				'ClientIP'	=> $this->_config->clientIp,
-				'Command'	=> $this->command(),
-			));
+			$this->_prepareParameters();
 
 			// Set the API url
 			$this->_url = $this->_config->url . '?' . $this->getEncodedParams();
