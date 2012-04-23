@@ -95,6 +95,15 @@ namespace Namecheap
 		}
 
 		/**
+		 * Return data array
+		 * @return array
+		 */
+		public function toArray()
+		{
+			return (array) $this->_data;
+		}
+
+		/**
 		 * Verify key is valid
 		 * @param string $key
 		 * @return string
