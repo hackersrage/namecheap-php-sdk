@@ -99,12 +99,8 @@ namespace Namecheap\Command\Domains\Dns
 		 */
 		public function addHost(\Namecheap\DnsRecord $record)
 		{
-			if (strlen($record->host) < 1)
-			{
-				throw new GetHosts\Exception('No host set');
-			}
-
-			return $this->setHost($record->host, $record);
+			$this->_hosts[] = $record;
+			return $this;
 		}
 
 		/**
