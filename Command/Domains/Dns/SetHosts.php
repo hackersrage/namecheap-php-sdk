@@ -43,6 +43,7 @@ namespace Namecheap\Command\Domains\Dns
 					'MXPref' . $i		=> $host->mxPref,
 					'TTL' . $i			=> $host->ttl,
 				));
+				$i += 1;
 			}
 		}
 

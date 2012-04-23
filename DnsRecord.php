@@ -240,11 +240,11 @@ namespace Namecheap
 
 		/**
 		 * Get address
-		 * @return bool
+		 * @return string
 		 */
 		public function getAddress()
 		{
-			return (bool) $this->_data['address'];
+			return (string) $this->_data['address'];
 		}
 
 		/**
